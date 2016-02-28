@@ -3,7 +3,7 @@
 
 Route::group(['middleware' => ['web'],['prefix' => 'ehelfileupload']], function () {
  //TODO
-    Route::resource('upload', 'UploadController', ['only' => [
+    Route::resource('upload', 'Ehel\FileUpload\Http\UploadController', ['only' => [
         'store', 'destroy'
     ]]);
 });

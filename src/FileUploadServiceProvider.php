@@ -6,12 +6,7 @@ use Illuminate\Support\ServiceProvider;
 
 class FileUploadServiceProvider extends ServiceProvider
 {
-    /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = true;
+
 
     /**
      * Bootstrap the application services.
@@ -23,6 +18,7 @@ class FileUploadServiceProvider extends ServiceProvider
         if (! $this->app->routesAreCached()) {
             require __DIR__.'/Http/routes.php';
         }
+
     }
 
     /**
@@ -32,6 +28,7 @@ class FileUploadServiceProvider extends ServiceProvider
      */
     public function register()
     {
+
         $this->registerFileUploader();
     }
 
@@ -41,8 +38,8 @@ class FileUploadServiceProvider extends ServiceProvider
      */
     protected function registerFileUploader()
     {
-        $this->app->singleton('fileUpload', function ($app) {
-            return new FileUpload($app['path']);
+        $this->app->singleton(FileUpload::class, function ($app) {
+            return new FileUpload('foo');
         });
     }
 }
