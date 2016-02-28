@@ -1,0 +1,21 @@
+{
+    "name": "ehel/fileupload",
+    "description": "A Laravel package for uploading files via Ajax",
+    "require": {
+        "illuminate/support": "^5.2"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ValentinSirbu",
+            "email": "valentinsirbu@yandex.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Ehel\\FileUpload\\": "src/"
+        }
+    }
+
+}
