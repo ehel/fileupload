@@ -19,6 +19,9 @@ class FileUploadServiceProvider extends ServiceProvider
             require __DIR__.'/Http/routes.php';
         }
 
+        $this->publishes([
+            __DIR__.'/config/config.php' => config_path('fileupload.php'),
+        ]);
     }
 
     /**

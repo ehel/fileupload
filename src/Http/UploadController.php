@@ -38,6 +38,7 @@ class UploadController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         $source = Input::get('modelSource');
 
 

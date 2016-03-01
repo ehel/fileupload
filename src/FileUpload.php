@@ -31,8 +31,25 @@ class FileUpload
      * @return string
      */
     public function buttons(){
+        $html = <<<EOL
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <input type="hidden" name="file_path">
+                    <span class="btn btn-success fileinput-button" style="cursor: pointer;position: relative;">
+                        <input type="file" name="file" id="file" class="inputfile" style="width: 0.1px;height: 0.1px;opacity: 0;overflow: hidden;position: absolute;z-index: -1;" />
+                        <label for="file" style="display: initial;cursor: pointer;font-weight: inherit;">Choose a file</label>
+                    </span>
+                    <button type="button" class="btn btn-danger" data-scope="action" data-action="deleteFile" data-filename="">
+                        <i class="fa fa-trash"></i>
+                        <span>
+                        Delete file </span>
+                    </button>
+                    <code class="fileupload-response" data-filename=""> 'No file chosen'</code>
+                </div>
+            </div>
+EOL;
 
-        return 'foo';
+        return $html;
 
     }
 
@@ -42,7 +59,33 @@ class FileUpload
      * @return string
      */
     public function script(){
-        return 'baz';
+        $script = <<<EOL
+            function handleFile(deleteFile, event) {
+                        fd = new FormData();
+                        fd.append("file_name", $('input[type=file]')[0].files[0]);
+                        $.ajax({
+                            url: "http://localhost:8000/ehelfileupload/upload",
+                            type: "POST",
+                            data: fd,
+                            enctype: 'multipart/form-data',
+                            processData: false,
+                            contentType: false
+                        }).done(function( data ) {
+                            swal({
+                                title: "Saved!",
+                                text: "Model has been saved.",
+                                type: "success"
+                                   }, function () {
+                                       location.reload();
+                                   });
+                        }).fail(function(data) {
+                            showErrors(data);
+                        });
+}
+            handleFile();
+EOL;
+
+        return $script;
     }
 
 
