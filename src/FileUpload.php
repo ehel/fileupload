@@ -30,11 +30,15 @@ class FileUpload
      * Generate buttons
      * @return string
      */
-    public function buttons(){
+    //Todo Token verification
+    public function buttons($directory){
+
         $html = <<<EOL
             <div class="form-group">
                 <div class="input-wrapper">
                     <input type="hidden" name="file_path">
+                    <input type="hidden" name="directory" value="$directory">
+
                     <span class="btn btn-success fileinput-button" style="cursor: pointer;position: relative;">
                         <input type="file" name="file" id="file" class="inputfile" style="width: 0.1px;height: 0.1px;opacity: 0;overflow: hidden;position: absolute;z-index: -1;" />
                         <label for="file" style="display: initial;cursor: pointer;font-weight: inherit;">Choose a file</label>
@@ -62,7 +66,9 @@ EOL;
         $script = <<<EOL
             function handleFile(deleteFile, event) {
                         fd = new FormData();
-                        fd.append("file_name", $('input[type=file]')[0].files[0]);
+                        fd.append("file", $('input[type=file]')[0].files[0]);
+                        fd.append("directory", $('input[name=directory]').val());
+
                         $.ajax({
                             url: "http://localhost:8000/ehelfileupload/upload",
                             type: "POST",
@@ -82,7 +88,7 @@ EOL;
                             showErrors(data);
                         });
 }
-            handleFile();
+            $('#file').on("change", function(){ handleFile(); });
 EOL;
 
         return $script;

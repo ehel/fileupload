@@ -38,12 +38,13 @@ class UploadController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
-        $source = Input::get('modelSource');
+        //dd($request->all());
+       // $source = Input::get('modelSource');
+        $directory = $request->input('directory');
 
 
-                if (Input::file('file_1')) {
-                    $file = $this->getFile('file_1', $source);
+                if ($request->file('file')) {
+                    $file = $this->getFile('file', $directory,$request);
                     if ($file && $file != 'error') {
                         return response()->json($file);
                     }
@@ -52,9 +53,10 @@ class UploadController extends Controller
 
     }
 
-    private function getFile($input, $source)
+    private function getFile($input, $source,$request)
     {
-        $file = Input::file($input);
+
+        $file = $request->file($input);
         if ($file) {
             return $this->processFile($file, $source);
         } else {
