@@ -31,6 +31,8 @@ class FileUpload
      * @return string
      */
     //Todo Token verification
+    //Todo Refactor Directory
+    //Todo Delete Feature
     public function buttons($directory){
 
         $html = <<<EOL
@@ -43,7 +45,7 @@ class FileUpload
                         <input type="file" name="file" id="file" class="inputfile" style="width: 0.1px;height: 0.1px;opacity: 0;overflow: hidden;position: absolute;z-index: -1;" />
                         <label for="file" style="display: initial;cursor: pointer;font-weight: inherit;">Choose a file</label>
                     </span>
-                    <button type="button" class="btn btn-danger" data-scope="action" data-action="deleteFile" data-filename="">
+                    <button type="button" class="btn btn-danger delete-file" data-scope="action" data-action="deleteFile" data-filename="">
                         <i class="fa fa-trash"></i>
                         <span>
                         Delete file </span>
@@ -64,7 +66,8 @@ EOL;
      */
     public function script(){
         $script = <<<EOL
-            function handleFile(deleteFile, event) {
+            function handleFile(uploadFile, event) {
+                if(uploadFile){
                         fd = new FormData();
                         fd.append("file", $('input[type=file]')[0].files[0]);
                         fd.append("directory", $('input[name=directory]').val());
@@ -77,18 +80,30 @@ EOL;
                             processData: false,
                             contentType: false
                         }).done(function( data ) {
-                            swal({
-                                title: "Saved!",
-                                text: "Model has been saved.",
-                                type: "success"
-                                   }, function () {
-                                       location.reload();
-                                   });
+                            $('.fileupload-response').text(data);
                         }).fail(function(data) {
                             showErrors(data);
                         });
+                        }else {
+                            fd = new FormData();
+                            fd.append("file_path", $('input[name=file_path]').value);
+                            fd.append("_method", "DELETE");
+                            $.ajax({
+                            url: "http://localhost:8000/ehelfileupload/upload/",
+                            type: "POST",
+                            data: {_method: 'DELETE', file_path:$('input[name=file_path]').value },
+                            enctype: 'multipart/form-data',
+                            processData: false,
+                            contentType: false
+                        }).done(function( data ) {
+                            console.log("Deleted");
+                        }).fail(function(data) {
+                            console.log("Can't delete file");
+                        });
+                        }
 }
-            $('#file').on("change", function(){ handleFile(); });
+            $('#file').on("change", function(){ handleFile(true); });
+            $('.delete-file').on("click", function(){ handleFile(false); });
 EOL;
 
         return $script;

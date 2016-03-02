@@ -144,12 +144,13 @@ class UploadController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $filename = Input::get('filePath');
+        dd($request->all());
+        $filename = Input::get('file_path');
         $fullpath = public_path() . '/' . $filename;
         File::delete($fullpath);
     }
