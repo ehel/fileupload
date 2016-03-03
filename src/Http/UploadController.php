@@ -11,52 +11,33 @@ use File;
 
 class UploadController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //dd($request->all());
-       // $source = Input::get('modelSource');
         $directory = $request->input('directory');
-
-
-                if ($request->file('file')) {
-                    $file = $this->getFile('file', $directory,$request);
-                    if ($file && $file != 'error') {
-                        return response()->json($file);
-                    }
-                }
-
-
+        if ($request->file('file')) {
+            $file = $this->getFile('file', $directory, $request);
+            if ($file && $file != 'error') {
+                return response()->json($file);
+            }
+        }
     }
 
-    private function getFile($input, $source,$request)
+    /**
+     * Get file
+     * @param $input
+     * @param $source
+     * @param $request
+     * @return array|bool|string
+     */
+    private function getFile($input, $source, $request)
     {
-
         $file = $request->file($input);
         if ($file) {
             return $this->processFile($file, $source);
@@ -65,20 +46,18 @@ class UploadController extends Controller
         }
     }
 
+    /**
+     * Validate and save file
+     * @param $file
+     * @param $extraDirectory
+     * @return array|string
+     */
     private function processFile($file, $extraDirectory)
     {
         $extension = $file->getClientOriginalExtension();
         $size = $file->getClientSize();
-        $mimes = array(
-            'pdf',
-            'doc',
-            'docx',
-            'odf',
-            'png',
-            'jpg',
-            'jpeg'
-        );
-        $maxSize = 5242880; // 5 mb
+        $mimes = config('fileupload.mimes');
+        $maxSize = config('fileupload.max_size');
         $validation = new \StdClass;
         $validation->error = false;
         $validation->errors = array();
@@ -91,61 +70,27 @@ class UploadController extends Controller
         if ($size > $maxSize) {
             $validation->error = true;
             array_push($validation->errors, 'File size is more than 5 mb.');
+
         }
 
         if ($validation->error) {
-            return response()->json($validation->errors);
+            return $validation->errors;
         } else {
             if ($file->isValid()) {
                 $destinationPath = config('fileupload.path') . $extraDirectory;
-                $fileName = $extraDirectory . '_' . rand(11111,99999) . '.' . $extension;
+                $fileName = $extraDirectory . '_' . rand(11111, 99999) . '.' . $extension;
                 $file->move($destinationPath, $fileName);
 
-                return $destinationPath . '/' .$fileName;
+                return $destinationPath . '/' . $fileName;
             } else {
                 return 'error';
             }
         }
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Request  $request
+     * @param  Request $request
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)

@@ -42,7 +42,7 @@ class FileUploadServiceProvider extends ServiceProvider
     protected function registerFileUploader()
     {
         $this->app->singleton(FileUpload::class, function ($app) {
-            return new FileUpload('foo');
+            return new FileUpload();
         });
     }
 }

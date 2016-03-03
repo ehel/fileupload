@@ -9,22 +9,6 @@ namespace Ehel\FileUpload;
  */
 class FileUpload
 {
-    /**
-     * Storage Path.
-     *
-     * @var string
-     */
-    protected $path;
-
-    /**
-     * FileUpload constructor.
-     * @param $path
-     */
-
-    public function __construct($path)
-    {
-        $this->path=$path;
-    }
 
     /**
      * Generate buttons
