@@ -1,12 +1,9 @@
 <?php
 
-//TODO toke
+//TODO token
 // 'middleware' => ['web'],
-//Todo Routes Refactoring
 Route::group(['prefix' => 'ehelfileupload'], function () {
- //TODO
-    Route::resource('upload', 'Ehel\FileUpload\Http\UploadController', ['only' => [
-        'store', 'destroy'
-    ]]);
+    Route::post('upload', 'Ehel\FileUpload\Http\UploadController@store');
+    Route::delete('upload', 'Ehel\FileUpload\Http\UploadController@destroy');
 
 });

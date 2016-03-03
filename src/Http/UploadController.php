@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Input, File;
+use File;
+
 
 class UploadController extends Controller
 {
@@ -96,7 +97,7 @@ class UploadController extends Controller
             return response()->json($validation->errors);
         } else {
             if ($file->isValid()) {
-                $destinationPath = 'uploads/' . $extraDirectory;
+                $destinationPath = config('fileupload.path') . $extraDirectory;
                 $fileName = $extraDirectory . '_' . rand(11111,99999) . '.' . $extension;
                 $file->move($destinationPath, $fileName);
 
@@ -149,8 +150,7 @@ class UploadController extends Controller
      */
     public function destroy(Request $request)
     {
-        dd($request->all());
-        $filename = Input::get('file_path');
+        $filename = $request->input('file_path');
         $fullpath = public_path() . '/' . $filename;
         File::delete($fullpath);
     }

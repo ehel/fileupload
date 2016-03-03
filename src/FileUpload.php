@@ -32,7 +32,7 @@ class FileUpload
      */
     //Todo Token verification
     //Todo Refactor Directory
-    //Todo Delete Feature
+
     public function buttons($directory){
 
         $html = <<<EOL
@@ -81,22 +81,22 @@ EOL;
                             contentType: false
                         }).done(function( data ) {
                             $('.fileupload-response').text(data);
+                            $('input[name=file_path]').val(data);
                         }).fail(function(data) {
                             showErrors(data);
                         });
                         }else {
                             fd = new FormData();
-                            fd.append("file_path", $('input[name=file_path]').value);
+                            fd.append("file_path", $('input[name=file_path]').val());
                             fd.append("_method", "DELETE");
                             $.ajax({
-                            url: "http://localhost:8000/ehelfileupload/upload/",
-                            type: "POST",
-                            data: {_method: 'DELETE', file_path:$('input[name=file_path]').value },
+                            url: "http://localhost:8000/ehelfileupload/upload?file_path="+$('input[name=file_path]').val(),
+                            type: "DELETE",
                             enctype: 'multipart/form-data',
                             processData: false,
                             contentType: false
                         }).done(function( data ) {
-                            console.log("Deleted");
+                            $('.fileupload-response').text("'No file chosen'");
                         }).fail(function(data) {
                             console.log("Can't delete file");
                         });
