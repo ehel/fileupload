@@ -1,1 +1,0 @@
-# Laravel Ajax File Upload 
