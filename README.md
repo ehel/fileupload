@@ -41,7 +41,7 @@ php artisan vendor:publish
 ```
 ###Step 2: Generate Script
 ```php
-{!!FileUpload::script() !!}
+{!!FileUpload::script($uploadSucces, $uploadFail, $deleteSucces, $deleteFail) !!}
 ```
 
 ##Example
@@ -58,7 +58,7 @@ php artisan vendor:publish
                 {!!FileUpload::buttons('photos','uploadbuttons') !!}
         </div>
     </body>
-    <script src="https://code.jquery.com/jquery-2.2.1.js"></script>
+    <script src="jquery-2.2.1.js"></script>
     <script>$.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -66,7 +66,7 @@ php artisan vendor:publish
         });
     </script>
     <script>
-        {!!FileUpload::script() !!}
+        {!!FileUpload::script('console.log("Succes")','console.log("Error")', 'console.log("Deleted")', 'console.log("Can\'t delete")') !!}
     </script>
 </html>
 ```

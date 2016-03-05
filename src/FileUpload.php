@@ -11,7 +11,6 @@ class FileUpload
 {
 
 
-    //TODO Success and fail script
 
     /**
      * Generate buttons
@@ -47,9 +46,13 @@ EOL;
 
     /**
      * Generate script
+     * @param $uploadSucces
+     * @param $uploadFail
+     * @param $deleteSucces
+     * @param $deleteFail
      * @return string
      */
-    public function script(){
+    public function script($uploadSucces = '', $uploadFail = '', $deleteSucces= '', $deleteFail = ''){
         $route = config('fileupload.route_prefix')."/".config('fileupload.route_name');
         $url = url()->full()."/".$route;
         $script = <<<EOL
@@ -69,9 +72,9 @@ EOL;
                         }).done(function( data ) {
                             $('.fileupload-response').text(data);
                             $('input[name=file_path]').val(data);
-
+                            $uploadSucces
                         }).fail(function(data) {
-                            console.log("Error");
+                            $uploadFail
                         });
                         }else {
                             fd = new FormData();
@@ -84,8 +87,9 @@ EOL;
 
                         }).done(function( data ) {
                             $('.fileupload-response').text("'No file chosen'");
+                            $deleteSucces
                         }).fail(function(data) {
-                            console.log("Can't delete file");
+                            $deleteFail
                         });
                         }
 }
