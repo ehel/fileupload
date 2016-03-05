@@ -2,13 +2,13 @@
 
 # Installation
 
-1. Begin by installing this package through Composer:
+Begin by installing this package through Composer:
 
 ```
 composer require ehel/laravelfileupload
 ```
 
-2. Add FileUploadServiceProvider to the providers array of config/app.php:
+Next, add FileUploadServiceProvider to the providers array of config/app.php:
 
 ```php
 'providers' => [
@@ -17,7 +17,7 @@ composer require ehel/laravelfileupload
 ];
 ```
 
-3.  Add class alias to the aliases array of config/app.php:
+Next, add class alias to the aliases array of config/app.php:
 
 ```php
   'aliases' => [
@@ -27,7 +27,7 @@ composer require ehel/laravelfileupload
   ],
 ```
 
-4. Run :
+Finnaly, run :
 
 ```
 php artisan vendor:publish

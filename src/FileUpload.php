@@ -78,7 +78,7 @@ EOL;
                             fd.append("file_path", $('input[name=file_path]').val());
                             fd.append("_method", "DELETE");
                             $.ajax({
-                            url: "http://localhost:8000/ehelfileupload/upload?file_path="+$('input[name=file_path]').val(),
+                            url: "$url"+"?file_path="+$('input[name=file_path]').val(),
                             type: "DELETE",
                             enctype: 'multipart/form-data',
 
