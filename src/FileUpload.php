@@ -10,8 +10,8 @@ namespace Ehel\FileUpload;
 class FileUpload
 {
 
-    //Todo Token verification
-    //Todo Clean Up Code
+
+    //TODO Success and fail script
 
     /**
      * Generate buttons
