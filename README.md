@@ -41,9 +41,11 @@ php artisan vendor:publish
 ```
 ###Step 2: Generate Script
 ```php
-{!!FileUpload::script($uploadSucces, $uploadFail, $deleteSucces, $deleteFail) !!}
+{!!FileUpload::script($uploadSuccess, $uploadFail, $deleteSuccess, $deleteFail) !!}
 ```
-
+##Config
+    "max_size" - Maximum file size.
+    "rewrite_file" - Set to true if want to rewrite existing file or set to false if you want to store the new file without delete existing.
 ##Example
 ```html
 <!DOCTYPE html>
@@ -55,7 +57,7 @@ php artisan vendor:publish
     </head>
     <body>
         <div class="container">
-                {!!FileUpload::buttons('photos','uploadbuttons') !!}
+                {!!FileUpload::buttons('photos','uploadButtons') !!}
         </div>
     </body>
     <script src="jquery-2.2.1.js"></script>
@@ -66,7 +68,7 @@ php artisan vendor:publish
         });
     </script>
     <script>
-        {!!FileUpload::script('console.log("Succes")','console.log("Error")', 'console.log("Deleted")', 'console.log("Can\'t delete")') !!}
+        {!!FileUpload::script('console.log("Success");','console.log("Error");', 'console.log("Deleted");', 'console.log("Can\'t delete");') !!}
     </script>
 </html>
 ```

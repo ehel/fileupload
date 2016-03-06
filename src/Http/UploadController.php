@@ -20,7 +20,7 @@ class UploadController extends Controller
      */
     public function store(Request $request)
     {
-        if(!is_null($request->file_path)){
+        if(!is_null($request->file_path) && config('fileupload.rewrite_file')){
             $this->deleteFile($request);
         }
         $directory = $request->input('directory');
@@ -48,7 +48,6 @@ class UploadController extends Controller
             return false;
         }
     }
-//Todo Delete on upload
     /**
      * Validate and save file
      * @param $file

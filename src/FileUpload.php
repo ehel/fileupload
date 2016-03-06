@@ -39,6 +39,7 @@ EOL;
         return $html;
     }
 
+    //TODO Rewrite script
 
     /**
      * Generate script
@@ -80,8 +81,6 @@ EOL;
                             $.ajax({
                             url: "$url"+"?file_path="+$('input[name=file_path]').val(),
                             type: "DELETE",
-                            enctype: 'multipart/form-data',
-
                         }).done(function( data ) {
                             $('.fileupload-response').text("'No file chosen'");
                             $deleteSucces

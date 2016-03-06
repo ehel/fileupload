@@ -5,5 +5,6 @@ return [
     "path"    => 'uploads/',
     "mimes"   => ['pdf','doc','docx','odf','png','jpg','jpeg'],
     "route_prefix" => 'ehelfileupload',
-    "route_name"   => 'upload'
+    "route_name"   => 'upload',
+    "rewrite_file" => true
 ];
