@@ -20,6 +20,9 @@ class UploadController extends Controller
      */
     public function store(Request $request)
     {
+        if(!is_null($request->file_path)){
+            $this->deleteFile($request);
+        }
         $directory = $request->input('directory');
         if ($request->file('file')) {
             $file = $this->getFile('file', $directory, $request);
@@ -45,7 +48,7 @@ class UploadController extends Controller
             return false;
         }
     }
-
+//Todo Delete on upload
     /**
      * Validate and save file
      * @param $file
@@ -94,6 +97,15 @@ class UploadController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Request $request)
+    {
+        $this->deleteFile($request);
+    }
+
+    /**
+     * Delete file
+     * @param Request $request
+     */
+    protected function deleteFile(Request $request)
     {
         $filename = $request->input('file_path');
         $fullpath = public_path() . '/' . $filename;

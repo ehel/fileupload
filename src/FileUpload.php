@@ -9,9 +9,6 @@ namespace Ehel\FileUpload;
  */
 class FileUpload
 {
-
-
-
     /**
      * Generate buttons
      * @param $directory
@@ -40,7 +37,6 @@ class FileUpload
 EOL;
 
         return $html;
-
     }
 
 
@@ -61,6 +57,7 @@ EOL;
                         fd = new FormData();
                         fd.append("file", $('input[type=file]')[0].files[0]);
                         fd.append("directory", $('input[name=directory]').val());
+                        fd.append("file_path", $('input[name=file_path]').val());
 
                         $.ajax({
                             url: "$url",
