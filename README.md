@@ -45,7 +45,8 @@ php artisan vendor:publish
 ```
 ##Config
     "max_size" - Maximum file size.
-    "rewrite_file" - Set to true if want to rewrite existing file or set to false if you want to store the new file without delete existing.
+    "rewrite_file" - Set to true if you want to rewrite existing file 
+     or set to false if you want to store the new file without delete existing (on re-upload).
 ##Example
 ```html
 <!DOCTYPE html>

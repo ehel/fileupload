@@ -40,6 +40,7 @@ EOL;
     }
 
     //TODO Rewrite script
+    //TODO Deactivate script
 
     /**
      * Generate script
