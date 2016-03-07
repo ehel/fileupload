@@ -39,8 +39,6 @@ EOL;
         return $html;
     }
 
-    //TODO Rewrite script
-    //TODO Deactivate script
 
     /**
      * Generate script
@@ -71,6 +69,8 @@ EOL;
                         }).done(function( data ) {
                             $('.fileupload-response').text(data);
                             $('input[name=file_path]').val(data);
+                            $(".inputfile").prop('disabled', true);
+                            $('.fileinput-button').addClass('disabled');
                             $uploadSucces
                         }).fail(function(data) {
                             $uploadFail
@@ -84,6 +84,8 @@ EOL;
                             type: "DELETE",
                         }).done(function( data ) {
                             $('.fileupload-response').text("'No file chosen'");
+                            $(".inputfile").prop('disabled', false);
+                            $('.fileinput-button').removeClass('disabled');
                             $deleteSucces
                         }).fail(function(data) {
                             $deleteFail
