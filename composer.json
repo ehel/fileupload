@@ -16,6 +16,11 @@
         "psr-4": {
             "Ehel\\FileUpload\\": "src/"
         }
+    },
+    "autoload-dev": {
+        "classmap": ["tests/TestFileUpload.php"]
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.2"
     }
-
 }
