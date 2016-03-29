@@ -1,14 +1,15 @@
 <?php
-//use Illuminate\Foundation\Testing\TestCase;
-use TestCase;
+
+
 class FileUploadTest extends TestCase
 {
     public function testRoutes()
     {
-        $path = config('fileupload.route_prefix').config('fileupload.route_name');
-        $this->json('POST', '/'.$path, ['name' => 'Test'])
-            ->seeJson([
-                'created' => true,
-            ]);
+        $path = config('fileupload.route_prefix').'/'.config('fileupload.route_name');
+        $response = $this->call('POST', '/'.$path);
+        $response_delete = $this->call('DELETE', '/'.$path);
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(200, $response_delete->getStatusCode());
+
     }
 }
