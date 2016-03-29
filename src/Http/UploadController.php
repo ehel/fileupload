@@ -11,6 +11,7 @@ use File;
 
 class UploadController extends Controller
 {
+    //TODO Errors
 
     /**
      * Store a newly created resource in storage.
@@ -20,14 +21,18 @@ class UploadController extends Controller
      */
     public function store(Request $request)
     {
+
         if(!is_null($request->file_path) && config('fileupload.rewrite_file')){
             $this->deleteFile($request);
         }
         $directory = $request->input('directory');
+
         if ($request->file('file')) {
             $file = $this->getFile('file', $directory, $request);
             if ($file && $file != 'error') {
                 return response()->json($file);
+            } else {
+                return response()->json('error');
             }
         }
     }
@@ -43,8 +48,10 @@ class UploadController extends Controller
     {
         $file = $request->file($input);
         if ($file) {
+
             return $this->processFile($file, $source);
         } else {
+
             return false;
         }
     }
@@ -82,9 +89,9 @@ class UploadController extends Controller
                 $destinationPath = config('fileupload.path') . $extraDirectory;
                 $fileName = $extraDirectory . '_' . rand(11111, 99999) . '.' . $extension;
                 $file->move($destinationPath, $fileName);
-
                 return $destinationPath . '/' . $fileName;
             } else {
+
                 return 'error';
             }
         }
