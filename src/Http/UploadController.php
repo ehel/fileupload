@@ -11,7 +11,6 @@ use File;
 
 class UploadController extends Controller
 {
-    //TODO Errors
 
     /**
      * Store a newly created resource in storage.
@@ -30,9 +29,11 @@ class UploadController extends Controller
         if ($request->file('file')) {
             $file = $this->getFile('file', $directory, $request);
             if ($file && $file != 'error') {
-                return response()->json($file);
+                    return response()->json($file);
+
+
             } else {
-                return response()->json('error');
+                return response()->json('File is not valid!');
             }
         }
     }
@@ -44,7 +45,7 @@ class UploadController extends Controller
      * @param $request
      * @return array|bool|string
      */
-    private function getFile($input, $source, $request)
+    protected function getFile($input, $source, $request)
     {
         $file = $request->file($input);
         if ($file) {
@@ -61,7 +62,7 @@ class UploadController extends Controller
      * @param $extraDirectory
      * @return array|string
      */
-    private function processFile($file, $extraDirectory)
+    protected function processFile($file, $extraDirectory)
     {
         $extension = $file->getClientOriginalExtension();
         $size = $file->getClientSize();
@@ -70,6 +71,7 @@ class UploadController extends Controller
         $validation = new \StdClass;
         $validation->error = false;
         $validation->errors = array();
+        $validation->message = '';
 
         if (!in_array($extension, $mimes)) {
             $validation->error = true;
@@ -83,13 +85,14 @@ class UploadController extends Controller
         }
 
         if ($validation->error) {
-            return $validation->errors;
+            return $validation;
         } else {
             if ($file->isValid()) {
                 $destinationPath = config('fileupload.path') . $extraDirectory;
                 $fileName = $extraDirectory . '_' . rand(11111, 99999) . '.' . $extension;
                 $file->move($destinationPath, $fileName);
-                return $destinationPath . '/' . $fileName;
+                $validation->message = $destinationPath . '/' . $fileName;
+                return $validation;
             } else {
 
                 return 'error';

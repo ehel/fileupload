@@ -9,6 +9,7 @@ namespace Ehel\FileUpload;
  */
 class FileUpload
 {
+    //TODO Scripts
     /**
      * Generate buttons
      * @param $directory
@@ -67,10 +68,17 @@ EOL;
                             processData: false,
                             contentType: false
                         }).done(function( data ) {
-                            $('.fileupload-response').text(data);
-                            $('input[name=file_path]').val(data);
-                            $(".inputfile").prop('disabled', true);
-                            $('.fileinput-button').addClass('disabled');
+
+                            if(!data.error){
+                                $('.fileupload-response').text(data.message);
+                                $('input[name=file_path]').val(data.message);
+                                $(".inputfile").prop('disabled', true);
+                                $('.fileinput-button').addClass('disabled');
+                            } else {
+                                $('.fileupload-response').text(data.errors);
+                                $('input[name=file_path]').val(data.errors);
+                            }
+
                             $uploadSucces
                         }).fail(function(data) {
                             $uploadFail
