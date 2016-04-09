@@ -41,11 +41,25 @@ php artisan vendor:publish
 ```
 ###Step 2: Generate Script
 ```php
-{!!FileUpload::script($uploadSuccess, $uploadFail, $deleteSuccess, $deleteFail) !!}
+{!!FileUpload::script($uploadSuccess, $uploadFail, $deleteSuccess) !!}
 ```
-##Config
-    "max_size" - Maximum file size.
-
+##Attention
+    First, it is necessary to add the token to all ajax request headers.
+    [See:](https://laravel.com/docs/master/routing#csrf-introduction)
+    You can do that by adding:
+    
+    ```html
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    ```
+    and
+    
+    ```javascript
+    $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+    });
+    ```
 ##Example
 ```html
 <!DOCTYPE html>

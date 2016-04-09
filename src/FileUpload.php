@@ -46,7 +46,6 @@ EOL;
      * @param $uploadSucces
      * @param $uploadFail
      * @param $deleteSucces
-     * @param $deleteFail
      * @return string
      */
     public function script($uploadSucces = '', $uploadFail = '', $deleteSucces= ''){
