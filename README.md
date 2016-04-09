@@ -44,7 +44,7 @@ php artisan vendor:publish
 {!!FileUpload::script($uploadSuccess, $uploadFail, $deleteSuccess) !!}
 ```
 ##Attention
-Jquery and Bootstrap are necessary.
+Jquery and Bootstrap are required.
 ##Example
 ```html
 <!DOCTYPE html>
