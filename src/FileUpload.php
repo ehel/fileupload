@@ -88,10 +88,6 @@ EOL;
                             $ajaxUploadFail
                         });
                         }else {
-                            fd = new FormData();
-                            fd.append("file_path", $('input[name=file_path]').val());
-                            fd.append("_token",'$_token');
-                            fd.append("_method", "DELETE");
                             $.ajax({
                             url: "$url"+"?file_path="+$('input[name=file_path]').val(),
                             type: "DELETE",
