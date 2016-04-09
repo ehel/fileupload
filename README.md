@@ -46,7 +46,7 @@ php artisan vendor:publish
 ##Attention
 First, it is necessary to add the token to all ajax request headers.
 
-[See:](https://laravel.com/docs/master/routing#csrf-introduction)
+[See](https://laravel.com/docs/master/routing#csrf-introduction)
 
 You can do that by adding:
     

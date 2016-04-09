@@ -11,6 +11,7 @@ use File;
 
 class UploadController extends Controller
 {
+    //Todo Test token verification and update docs
 
     /**
      * Store a newly created resource in storage.

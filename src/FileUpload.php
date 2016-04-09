@@ -9,7 +9,6 @@ namespace Ehel\FileUpload;
  */
 class FileUpload
 {
-    //TODO Scripts
     /**
      * Generate buttons
      * @param $directory
@@ -52,6 +51,7 @@ EOL;
         $route = config('fileupload.route_prefix')."/".config('fileupload.route_name');
         $ajaxUploadFail = config('fileupload.ajaxUploadFail');
         $ajaxDeleteFail = config('fileupload.ajaxDeleteFail');
+        $_token = csrf_token();
         $url = url()->full()."/".$route;
         $script = <<<EOL
             function handleFile(uploadFile, event) {
@@ -60,6 +60,7 @@ EOL;
                         fd.append("file", $('input[type=file]')[0].files[0]);
                         fd.append("directory", $('input[name=directory]').val());
                         fd.append("file_path", $('input[name=file_path]').val());
+                        fd.append("_token",'$_token');
 
                         $.ajax({
                             url: "$url",
@@ -89,10 +90,12 @@ EOL;
                         }else {
                             fd = new FormData();
                             fd.append("file_path", $('input[name=file_path]').val());
+                            fd.append("_token",'$_token');
                             fd.append("_method", "DELETE");
                             $.ajax({
                             url: "$url"+"?file_path="+$('input[name=file_path]').val(),
                             type: "DELETE",
+                            data: {"_token" : '$_token'}
                         }).done(function( data ) {
                             $('.fileupload-response').text("'No file chosen'");
                             $(".inputfile").prop('disabled', false);
