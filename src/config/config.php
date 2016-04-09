@@ -6,6 +6,8 @@ return [
     "mimes"   => ['pdf','doc','docx','odf','png','jpg','jpeg'],
     "route_prefix" => 'ehelfileupload',
     "route_name"   => 'upload',
+    "ajaxUploadFail"   => 'console.log("Ajax Upload Error");',
+    "ajaxDeleteFail"   => 'console.log("Ajax Delete Error");',
     /*
 |--------------------------------------------------------------------------
 | Rewrite File

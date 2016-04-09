@@ -68,7 +68,7 @@ php artisan vendor:publish
         });
     </script>
     <script>
-        {!!FileUpload::script('console.log("Success");','console.log("Error");', 'console.log("Deleted");', 'console.log("Can\'t delete");') !!}
+        {!!FileUpload::script('console.log("Success");','console.log("Error");', 'console.log("Deleted");') !!}
     </script>
 </html>
 ```

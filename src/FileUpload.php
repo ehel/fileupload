@@ -49,8 +49,10 @@ EOL;
      * @param $deleteFail
      * @return string
      */
-    public function script($uploadSucces = '', $uploadFail = '', $deleteSucces= '', $deleteFail = ''){
+    public function script($uploadSucces = '', $uploadFail = '', $deleteSucces= ''){
         $route = config('fileupload.route_prefix')."/".config('fileupload.route_name');
+        $ajaxUploadFail = config('fileupload.ajaxUploadFail');
+        $ajaxDeleteFail = config('fileupload.ajaxDeleteFail');
         $url = url()->full()."/".$route;
         $script = <<<EOL
             function handleFile(uploadFile, event) {
@@ -74,14 +76,16 @@ EOL;
                                 $('input[name=file_path]').val(data.message);
                                 $(".inputfile").prop('disabled', true);
                                 $('.fileinput-button').addClass('disabled');
+                                $uploadSucces
                             } else {
                                 $('.fileupload-response').text(data.errors);
                                 $('input[name=file_path]').val(data.errors);
+                                $uploadFail
                             }
 
-                            $uploadSucces
+
                         }).fail(function(data) {
-                            $uploadFail
+                            $ajaxUploadFail
                         });
                         }else {
                             fd = new FormData();
@@ -96,7 +100,7 @@ EOL;
                             $('.fileinput-button').removeClass('disabled');
                             $deleteSucces
                         }).fail(function(data) {
-                            $deleteFail
+                            $ajaxDeleteFail
                         });
                         }
 }
