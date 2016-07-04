@@ -20,15 +20,9 @@ return [
     "max_size" => 5242880, // 5 mb
     "path"    => 'uploads/',
     "mimes"   => ['pdf','doc','docx','odf','png','jpg','jpeg'],
-    /*
-|--------------------------------------------------------------------------
-| Scripts
-|--------------------------------------------------------------------------
-|Scripts for ajax errors.
-|
-*/
-    "ajaxUploadFail"   => 'console.log("Ajax Upload Error");',
-    "ajaxDeleteFail"   => 'console.log("Ajax Delete Error");',
+
+
+
     /*
 |--------------------------------------------------------------------------
 | Rewrite File

@@ -46,12 +46,14 @@ EOL;
      * @param $uploadSuccess
      * @param $uploadFail
      * @param $deleteSuccess
+     * @param $deleteFail
+     * @param $ajaxUploadFail
      * @return string
      */
-    public function script($uploadSuccess = '', $uploadFail = '', $deleteSuccess= ''){
+    public function script($uploadSuccess = '', $uploadFail = '', $deleteSuccess= '',  $deleteFail= '', $ajaxUploadFail=''){
         $route = config('fileupload.route_prefix')."/".config('fileupload.route_name');
-        $ajaxUploadFail = config('fileupload.ajaxUploadFail');
-        $ajaxDeleteFail = config('fileupload.ajaxDeleteFail');
+
+
         $_token = csrf_token();
         $url = "/".$route;
         $script = <<<EOL
@@ -98,7 +100,7 @@ EOL;
                             $('.fileinput-button').removeClass('disabled');
                             $deleteSuccess
                         }).fail(function(data) {
-                            $ajaxDeleteFail
+                            $deleteFail
                         });
                         }
 }

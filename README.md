@@ -41,7 +41,7 @@ php artisan vendor:publish
 ```
 ###Step 2: Generate Script
 ```php
-{!!FileUpload::script($uploadSuccess, $uploadFail, $deleteSuccess) !!}
+{!!FileUpload::script($uploadSuccess, $uploadFail, $deleteSuccess, $deleteFail, $ajaxUploadFail) !!}
 ```
 ##Attention
 Jquery and Bootstrap are required.
@@ -69,7 +69,7 @@ Package generate a hidden input with file path, so you can save file path to dat
     <script src="jquery-2.2.1.js"></script>
 
     <script>
-        {!!FileUpload::script('console.log("Success");','console.log("Error");', 'console.log("Deleted");') !!}
+        {!!FileUpload::script('console.log("Success");','console.log("Error");', 'console.log("Deleted");', 'console.log("Can\'t delete");', 'console.log("Here is ajax error on upload");') !!}
     </script>
 </html>
 ```
