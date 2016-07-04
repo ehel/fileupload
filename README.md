@@ -45,6 +45,13 @@ php artisan vendor:publish
 ```
 ##Attention
 Jquery and Bootstrap are required.
+
+##Save file path to database
+Package generate a hidden input with file path, so you can save file path to database.
+
+```html
+<input type="hidden" name="file_path" value="your_file_path">
+```
 ##Example
 ```html
 <!DOCTYPE html>
