@@ -53,7 +53,7 @@ EOL;
         $ajaxUploadFail = config('fileupload.ajaxUploadFail');
         $ajaxDeleteFail = config('fileupload.ajaxDeleteFail');
         $_token = csrf_token();
-        $url = url()->full()."/".$route;
+        $url = "/".$route;
         $script = <<<EOL
             function handleFile(uploadFile, event) {
                 if(uploadFile){
