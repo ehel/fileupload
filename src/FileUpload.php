@@ -55,7 +55,7 @@ EOL;
 
 
         $_token = csrf_token();
-        $url = "/".$route;
+        $url = url('/')."/".$route;
         $script = <<<EOL
             function handleFile(uploadFile, event) {
                 if(uploadFile){
